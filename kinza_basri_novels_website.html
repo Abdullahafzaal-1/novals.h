@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kinza Basri Novels - Digital Library</title>
+    <!-- Google Fonts for Urdu & Elegant Aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Gulzar&family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #120914;
+            --bg-card: rgba(30, 18, 34, 0.7);
+            --rose-gold: #e5a99c;
+            --rose-gold-glow: rgba(229, 169, 156, 0.4);
+            --soft-pink: #fbc4ab;
+            --text-light: #f7eef8;
+            --text-muted: #c2b2c4;
+            --whatsapp-green: #25D366;
+            --email-blue: #ea4335;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(229, 169, 156, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(251, 196, 171, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: var(--text-light);
+            font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        header {
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(18, 9, 20, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(229, 169, 156, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--rose-gold);
+            text-shadow: 0 0 12px var(--rose-gold-glow);
+            letter-spacing: 0.5px;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, var(--rose-gold), var(--soft-pink));
+            color: #120914;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.6rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--rose-gold-glow);
+            transition: all 0.3s ease;
+        }
+
+        .add-btn:active, .add-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 22px var(--soft-pink);
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            padding: 20px 15px;
+            margin: 10px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .novel-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(229, 169, 156, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .novel-card:hover {
+            border-color: rgba(251, 196, 171, 0.4);
+            box-shadow: 0 12px 35px var(--rose-gold-glow);
+        }
+
+        .cover-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 240px;
+            height: 350px;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid var(--rose-gold);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .cover-wrapper:active {
+            transform: scale(0.98);
+        }
+
+        .cover-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .novel-title {
+            font-size: 1.8rem;
+            margin: 15px 0 5px 0;
+            color: var(--soft-pink);
+            font-family: 'Gulzar', 'Noto Nastaliq Urdu', serif;
+            text-shadow: 0 0 10px rgba(251, 196, 171, 0.2);
+        }
+
+        .author-name {
+            font-size: 1rem;
+            color: var(--rose-gold);
+            margin-bottom: 10px;
+            font-family: 'Noto Nastaliq Urdu', serif;
+        }
+
+        .details-badge {
+            font-size: 0.8rem;
+            background: rgba(229, 169, 156, 0.12);
+            color: var(--rose-gold);
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(229, 169, 156, 0.25);
+        }
+
+        .synopsis {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-family: 'Noto Nastaliq Urdu', serif;
+            padding: 0 5px;
+        }
+
+        .buy-action-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .buy-btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .buy-btn-email {
+            background: linear-gradient(135deg, #ea4335, #c5221f);
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(234, 67, 53, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .buy-btn-whatsapp:active, .buy-btn-email:active {
+            transform: scale(0.98);
+        }
+
+        /* Modal / Popup Styling for Mobile */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 5, 12, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: #1a0f1d;
+            border: 1px solid rgba(229, 169, 156, 0.4);
+            padding: 22px;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 30px var(--rose-gold-glow);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h3 {
+            color: var(--soft-pink);
+            margin-bottom: 15px;
+            text-align: center;
+            font-family: 'Noto Nastaliq Urdu', serif;
+            font-size: 1.2rem;
+        }
+
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #100812;
+            border: 1px solid rgba(229, 169, 156, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .modal-content input:focus, .modal-content textarea:focus {
+            border-color: var(--rose-gold);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            padding: 11px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--rose-gold), var(--soft-pink));
+            color: #120914;
+        }
+
+        .cancel-btn {
+            background: #2a1b2d;
+            color: var(--text-muted);
+        }
+
+        .or-divider {
+            text-align: center;
+            margin: 15px 0 10px 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .modal-wa-btn {
+            background: transparent;
+            border: 1px solid #25D366;
+            color: #25D366;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 12px 15px;
+            }
+            .logo {
+                font-size: 1.2rem;
+            }
+            .container {
+                padding: 15px 10px;
+                gap: 20px;
+            }
+            .cover-wrapper {
+                height: 320px;
+            }
+            .novel-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Kinza Basri Novels</div>
+        <button class="add-btn" id="openAddModal" title="Naya Novel Add Karein">+</button>
+    </header>
+
+    <div class="container" id="novelContainer">
+        
+        <!-- Main Novel Card -->
+        <div class="novel-card">
+            <div class="cover-wrapper" onclick="openContactModal('پُور ارحم')">
+                <img src="WhatsApp Image 2026-09-30 at 7.40.07 PM.jpeg" alt="Hoor E Arham Novel Cover">
+            </div>
+            
+            <h2 class="novel-title">پُور ارحم (Pur Arham)</h2>
+            <div class="author-name">مُصنّفہ: کنزہ بصری</div>
+            <div class="details-badge">850 الصفحات | Urdu Fiction</div>
+            
+            <p class="synopsis">
+                "جب دعا صبر بن جائے... تو تقدیر خوبصورت ہو جاتی ہے"۔ ایک معصوم سی لڑکی، ایک سنجیدہ مزاج شخص اور ایک ایسی محبت جو آزمائشوں سے گزر کر لافانی بن جاتی ہے۔
+            </p>
+
+            <div class="buy-action-group">
+                <!-- WhatsApp Purchase -->
+                <a href="https://wa.me/923316395646?text=Assalam-o-Alaikum!%20Mujhe%20Pur%20Arham%20novel%20khareedna%20hai%20(Rs.%201,000)." target="_blank" class="buy-btn-whatsapp">
+                    🛒 WhatsApp پر خریدیں (Rs. 1,000)
+                </a>
+                
+                <!-- Email Purchase -->
+                <a href="mailto:abdullahafzaal1043@gmail.com?subject=Pur%20Arham%20Novel%20Purchase%20Query&body=Assalam-o-Alaikum,%20Mujhe%20Pur%20Arham%20novel%20khareedna%20hai." class="buy-btn-email">
+                    ✉️ Email کے ذریعے خریدیں
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 1. Contact / Request Access Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <h3>رابطہ / Access Request</h3>
+            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                <input type="text" name="Novel" id="requestedNovelName" readonly style="color: var(--rose-gold); font-weight: bold; text-align: center; border-color: rgba(229,169,156,0.5);">
+                <input type="text" name="Name" placeholder="آپ کا نام (Name)" required>
+                <input type="email" name="Email" placeholder="ای میل (Email)" required>
+                <textarea name="Message" rows="3" placeholder="پیغام / Message (e.g. Mai aapka relative/friend hu...)" required></textarea>
+                
+                <div class="modal-actions">
+                    <button type="submit" class="submit-btn">ارسال کریں (Send Email)</button>
+                    <button type="button" class="cancel-btn" onclick="closeContactModal()">بند کریں</button>
+                </div>
+            </form>
+
+            <div class="or-divider">یا پھر direct WhatsApp کریں</div>
+
+            <a href="https://wa.me/923316395646?text=Assalam-o-Alaikum!%20Mai%20relative/friend%20hu,%20mujhe%20novel%20reading%20link%20chahiye." target="_blank" class="modal-wa-btn">
+                💬 Direct WhatsApp Message
+            </a>
+        </div>
+    </div>
+
+    <!-- 2. Add New Novel Modal (Admin) -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <h3>نیا نوول شامل کریں</h3>
+            <input type="text" id="newTitle" placeholder="نوول کا نام (Novel Title)">
+            <input type="text" id="newPages" placeholder="صفحات / Pages (e.g. 500 Pages)">
+            <input type="text" id="newPrice" placeholder="قیمت / Price (e.g. Rs. 1,200)">
+            <input type="text" id="newCover" placeholder="Cover Image Path (e.g. cover2.png)">
+            <textarea id="newSynopsis" rows="3" placeholder="مختصر تعارف (Synopsis)"></textarea>
+            
+            <div class="modal-actions">
+                <button type="button" class="submit-btn" onclick="addNewNovel()">شامل کریں</button>
+                <button type="button" class="cancel-btn" id="closeAddModal">منسوخ کریں</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const contactModal = document.getElementById('contactModal');
+        const addModal = document.getElementById('addModal');
+        const openAddBtn = document.getElementById('openAddModal');
+        const closeAddBtn = document.getElementById('closeAddModal');
+        const container = document.getElementById('novelContainer');
+        const requestedNovelInput = document.getElementById('requestedNovelName');
+
+        function openContactModal(novelName) {
+            requestedNovelInput.value = novelName || 'پُور ارحم';
+            contactModal.style.display = 'flex';
+        }
+
+        function closeContactModal() {
+            contactModal.style.display = 'none';
+        }
+
+        openAddBtn.onclick = () => addModal.style.display = 'flex';
+        closeAddBtn.onclick = () => addModal.style.display = 'none';
+
+        window.onclick = (e) => { 
+            if (e.target === contactModal) contactModal.style.display = 'none'; 
+            if (e.target === addModal) addModal.style.display = 'none'; 
+        };
+
+        function addNewNovel() {
+            const title = document.getElementById('newTitle').value;
+            const pages = document.getElementById('newPages').value || 'Urdu Novel';
+            const price = document.getElementById('newPrice').value || 'Rs. 1,000';
+            const cover = document.getElementById('newCover').value || 'https://via.placeholder.com/240x350';
+            const synopsis = document.getElementById('newSynopsis').value;
+
+            if (!title) {
+                alert('Meharbani karke novel ka naam likhein!');
+                return;
+            }
+
+            const card = document.createElement('div');
+            card.className = 'novel-card';
+            card.innerHTML = `
+                <div class="cover-wrapper" onclick="openContactModal('${title}')">
+                    <img src="${cover}" alt="${title}">
+                </div>
+                <h2 class="novel-title">${title}</h2>
+                <div class="author-name">مُصنّفہ: کنزہ بصری</div>
+                <div class="details-badge">${pages}</div>
+                <p class="synopsis">${synopsis}</p>
+                <div class="buy-action-group">
+                    <a href="https://wa.me/923316395646?text=Assalam-o-Alaikum!%20Mujhe%20${encodeURIComponent(title)}%20novel%20khareedna%20hai%20(${encodeURIComponent(price)})." target="_blank" class="buy-btn-whatsapp">
+                        🛒 WhatsApp پر خریدیں (${price})
+                    </a>
+                    <a href="mailto:abdullahafzaal1043@gmail.com?subject=${encodeURIComponent(title)}%20Novel%20Purchase%20Query&body=Assalam-o-Alaikum,%20Mujhe%20${encodeURIComponent(title)}%20novel%20khareedna%20hai." class="buy-btn-email">
+                        ✉️ Email کے ذریعے خریدیں
+                    </a>
+                </div>
+            `;
+
+            container.appendChild(card);
+            addModal.style.display = 'none';
+
+            // Reset inputs
+            document.getElementById('newTitle').value = '';
+            document.getElementById('newPages').value = '';
+            document.getElementById('newPrice').value = '';
+            document.getElementById('newCover').value = '';
+            document.getElementById('newSynopsis').value = '';
+        }
+    </script>
+</body>
+</html>
